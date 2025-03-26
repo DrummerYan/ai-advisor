@@ -1,32 +1,62 @@
 import streamlit as st
+import time
 
-# 设置页面配置
+# ✅ 页面设置
 st.set_page_config(
     page_title="张牧川 · AI潜力分析器",
     page_icon="🧠",
     layout="centered"
 )
 
-# 页面顶部样式（大标题）
+# ✅ 加背景图
 st.markdown("""
-    <div style='text-align: center; margin-bottom: 30px;'>
+    <style>
+    .stApp {
+        background-image: url('https://images.unsplash.com/photo-1607746882042-944635dfe10e');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# ✅ 自定义按钮样式
+st.markdown("""
+    <style>
+    div.stButton > button:first-child {
+        background-color: #f63366;
+        color: white;
+        border-radius: 8px;
+        height: 48px;
+        font-size: 18px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# ✅ 页面Logo + 标题
+st.markdown("""
+    <div style='text-align: center;'>
+        <img src='https://your-logo-url.com/logo.png' width='100'> <!-- 替换为你头像的真实链接 -->
         <h1 style='color: #f63366;'>🧠 AI 潜力分析器</h1>
-        <p style='color: gray;'>根据你的年龄与目标，智能分析你的AI创业路径</p>
+        <p style='color: gray;'>输入年龄和目标，我来告诉你最适合的AI路径</p>
     </div>
 """, unsafe_allow_html=True)
 
-# 输入卡片样式开始
+# ✅ 输入区域
 with st.container():
     st.markdown("### 👤 请输入你的信息：")
     name = st.text_input("你的名字")
     age = st.number_input("你的年龄", min_value=0, max_value=120, step=1)
     goal = st.text_area("你的目标")
 
-# 分析逻辑
+# ✅ 分析逻辑 + 加载动画
 if st.button("🚀 开始分析"):
     if name.strip() == "" or goal.strip() == "":
         st.warning("请填写完整信息哦～")
     else:
+        with st.spinner('🧠 AI正在思考中...'):
+            time.sleep(2)
+
         st.markdown("---")
         st.markdown("### 🧠 分析结果：")
 
@@ -40,7 +70,7 @@ if st.button("🚀 开始分析"):
         else:
             st.success(f"🕰️ {name}，你 {age} 岁了，但经验是最大财富！目标是：{goal}，建议你结合AI+你熟悉的行业，做出独一无二的价值型项目。")
 
-# 底部署名 + 引导
+# ✅ 页面底部
 st.markdown("""
     <hr>
     <div style='text-align: center; color: gray; font-size: 14px;'>
